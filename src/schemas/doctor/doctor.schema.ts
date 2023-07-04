@@ -1,0 +1,18 @@
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { HydratedDocument } from 'mongoose'
+import { User } from 'src/schemas/user/user.schema'
+
+@Schema()
+export class Doctor extends User {
+  @Prop()
+  medicalRegisterNumber: number
+
+  @Prop()
+  specialty: string
+}
+
+export type DoctorDocument = HydratedDocument<Doctor>
+
+export const DoctorSchema = SchemaFactory.createForClass(Doctor)
+
+export const Doctor_Model = Doctor.name

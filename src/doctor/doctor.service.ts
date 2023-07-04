@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { CreateDoctorDto } from './dto/create-doctor.dto'
-import { UpdateDoctorDto } from './dto/update-doctor.dto'
+import { CreateDoctorDto } from '../dto/doctor/create-doctor.dto'
+import { UpdateDoctorDto } from '../dto/doctor/update-doctor.dto'
 import { InjectModel } from '@nestjs/mongoose'
-import { Doctor, Doctor_Model } from './schemas/doctor.schema'
+import { Doctor, Doctor_Model } from '../schemas/doctor/doctor.schema'
 import { Model } from 'mongoose'
 
 @Injectable()
