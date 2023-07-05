@@ -5,7 +5,7 @@ import { User } from 'src/schemas/user/user.schema'
 @Schema()
 export class Doctor extends User {
   @Prop()
-  medicalRegisterNumber: number
+  medical_register_number: number
 
   @Prop()
   specialty: string

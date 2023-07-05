@@ -10,6 +10,8 @@ import { PatientModule } from './patient/patient.module'
 
 import { DatabaseModule } from './infra/mongoose/database.module'
 import { MongooseModelsModule } from './schemas/mongoose-models.module'
+import { APP_PIPE } from '@nestjs/core'
+import { ZodValidationPipe } from 'nestjs-zod'
 
 @Module({
   imports: [
@@ -22,6 +24,6 @@ import { MongooseModelsModule } from './schemas/mongoose-models.module'
     PatientModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_PIPE, useClass: ZodValidationPipe }],
 })
 export class AppModule {}
