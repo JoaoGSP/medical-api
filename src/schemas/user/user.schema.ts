@@ -5,28 +5,28 @@ import { Address, AddressSchema } from 'src/schemas/common/address.schema'
 @Schema({ timestamps: true, discriminatorKey: '_role' })
 export class User {
   @Prop()
-  id: number
+  id?: number
 
   @Prop()
-  name: string
+  name?: string
 
   @Prop()
-  email: string
+  email?: string
 
   @Prop()
-  password: string
+  password?: string
 
   @Prop()
-  gender: string
+  gender?: string
 
   @Prop({ type: Date, default: Date.now })
-  birth_date: Date
+  birth_date?: Date
 
   @Prop()
-  phone_number: number
+  phone_number?: number
 
   @Prop({ type: AddressSchema })
-  address: Address
+  address?: Address
 }
 
 export type UserDocument = HydratedDocument<User>
