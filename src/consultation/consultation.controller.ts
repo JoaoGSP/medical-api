@@ -1,16 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
 import { ConsultationService } from './consultation.service'
-import { CreateConsultationDto } from '../dto/consultation/create-consultation.dto'
-import { UpdateConsultationDto } from '../dto/consultation/update-consultation.dto'
+import { CreateConsultationDto } from '@contracts/dtos/consultation/create-consultation.dto'
+import { UpdateConsultationDto } from '@contracts/dtos/consultation/update-consultation.dto'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Consultation')
 @Controller('consultation')
 export class ConsultationController {
   constructor(private readonly consultationService: ConsultationService) {}
@@ -31,10 +25,7 @@ export class ConsultationController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateConsultationDto: UpdateConsultationDto
-  ) {
+  update(@Param('id') id: string, @Body() updateConsultationDto: UpdateConsultationDto) {
     return this.consultationService.update(+id, updateConsultationDto)
   }
 

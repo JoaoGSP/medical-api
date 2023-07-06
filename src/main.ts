@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('Medical Api Docs')
     .setDescription('The medical API description')
     .setVersion('0.0.1')
-    .addTag('medical')
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)

@@ -1,16 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
 import { DoctorService } from './doctor.service'
-import { CreateDoctorDto } from '../dto/doctor/create-doctor.dto'
-import { UpdateDoctorDto } from '../dto/doctor/update-doctor.dto'
+import { CreateDoctorDto } from '@contracts/dtos/doctor/create-doctor.dto'
+import { UpdateDoctorDto } from '@contracts/dtos/doctor/update-doctor.dto'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Doctor')
 @Controller('doctor')
 export class DoctorController {
   constructor(private readonly doctorService: DoctorService) {}

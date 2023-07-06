@@ -9,7 +9,7 @@ import { UserModule } from './user/user.module'
 import { PatientModule } from './patient/patient.module'
 
 import { DatabaseModule } from './infra/mongoose/database.module'
-import { MongooseModelsModule } from './schemas/mongoose-models.module'
+import { MongooseModelsModule } from '@contracts/schemas/mongoose-models.module'
 import { APP_PIPE } from '@nestjs/core'
 import { ZodValidationPipe } from 'nestjs-zod'
 

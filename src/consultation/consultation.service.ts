@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import { CreateConsultationDto } from '../dto/consultation/create-consultation.dto'
-import { UpdateConsultationDto } from '../dto/consultation/update-consultation.dto'
 import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { CreateConsultationDto } from '@contracts/dtos/consultation/create-consultation.dto'
+import { UpdateConsultationDto } from '@contracts/dtos/consultation/update-consultation.dto'
 import {
   ConsultationDocument,
   Consultation_Model,
-} from 'src/schemas/consultation/consultation.schema'
-import { Model } from 'mongoose'
+} from '@contracts/schemas/consultation/consultation.schema'
 
 @Injectable()
 export class ConsultationService {

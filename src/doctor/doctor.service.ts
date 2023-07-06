@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { CreateDoctorDto } from '../dto/doctor/create-doctor.dto'
-import { UpdateDoctorDto } from '../dto/doctor/update-doctor.dto'
 import { InjectModel } from '@nestjs/mongoose'
-import { DoctorDocument, Doctor_Model } from '../schemas/doctor/doctor.schema'
 import { Model } from 'mongoose'
+import { CreateDoctorDto } from '@contracts/dtos/doctor/create-doctor.dto'
+import { UpdateDoctorDto } from '@contracts/dtos/doctor/update-doctor.dto'
+import { DoctorDocument, Doctor_Model } from '@contracts/schemas/doctor/doctor.schema'
 
 @Injectable()
 export class DoctorService {
-  constructor(
-    @InjectModel(Doctor_Model) private doctorModel: Model<DoctorDocument>
-  ) {}
+  constructor(@InjectModel(Doctor_Model) private doctorModel: Model<DoctorDocument>) {}
   create(createDoctorDto: CreateDoctorDto) {
     return 'This action adds a new doctor'
   }
