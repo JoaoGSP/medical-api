@@ -8,23 +8,27 @@ import { DoctorDocument, Doctor_Model } from '@contracts/schemas/doctor/doctor.s
 @Injectable()
 export class DoctorService {
   constructor(@InjectModel(Doctor_Model) private doctorModel: Model<DoctorDocument>) {}
-  create(createDoctorDto: CreateDoctorDto) {
-    return 'This action adds a new doctor'
+
+  async create(createDoctorDto: CreateDoctorDto): Promise<DoctorDocument> {
+    const createdDoctor = new this.doctorModel(createDoctorDto)
+    return createdDoctor.save()
   }
 
-  findAll() {
-    return `This action returns all doctor`
+  async findAll(): Promise<DoctorDocument[]> {
+    return this.doctorModel.find().exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} doctor`
+  async findOne(id: string) {
+    return this.doctorModel.findById(id).exec()
   }
 
-  update(id: number, updateDoctorDto: UpdateDoctorDto) {
-    return `This action updates a #${id} doctor`
+  async update(id: string, updateDoctorDto: UpdateDoctorDto) {
+    const updatedDoctor = this.doctorModel.findByIdAndUpdate(id, updateDoctorDto).exec()
+    return updatedDoctor
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} doctor`
+  remove(id: string) {
+    const removedDoctor = this.doctorModel.findByIdAndDelete(id).exec()
+    return removedDoctor
   }
 }

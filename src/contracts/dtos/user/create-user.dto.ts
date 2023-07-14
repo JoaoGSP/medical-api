@@ -3,9 +3,9 @@ import { z } from 'nestjs-zod/z'
 
 export const CreateUserSchema = z.object({
   name: z.string(),
-  email: z.string(),
+  email: z.string().email(),
   password: z.string(),
-  gender: z.string(),
+  gender: z.enum(['male', 'female']),
   birth_date: z.dateString().format('date').past(),
   phone_number: z.number(),
   address: z.object({

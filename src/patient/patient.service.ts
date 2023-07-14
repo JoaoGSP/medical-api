@@ -14,19 +14,21 @@ export class PatientService {
     return createdPatient.save()
   }
 
-  findAll() {
-    return `This action returns all user`
+  async findAll(): Promise<PatientDocument[]> {
+    return this.patientModel.find().exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`
+  async findOne(id: string) {
+    return this.patientModel.findById(id).exec()
   }
 
-  update(id: number, updatePatientDto: UpdatePatientDto) {
-    return `This action updates a #${id} user`
+  async update(id: string, updatePatientDto: UpdatePatientDto) {
+    const updatedPatient = this.patientModel.findByIdAndUpdate(id, updatePatientDto).exec()
+    return updatedPatient
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`
+  remove(id: string) {
+    const removedPatient = this.patientModel.findByIdAndDelete(id).exec()
+    return removedPatient
   }
 }

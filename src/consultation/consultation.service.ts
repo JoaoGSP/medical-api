@@ -15,23 +15,31 @@ export class ConsultationService {
     private consultationModel: Model<ConsultationDocument>
   ) {}
 
-  create(createConsultationDto: CreateConsultationDto) {
-    return 'This action adds a new consultation'
+  async create(createConsultationDto: CreateConsultationDto): Promise<ConsultationDocument> {
+    const consultationToCreate = new this.consultationModel(createConsultationDto)
+    const result = await consultationToCreate.save()
+    return result
   }
 
-  findAll() {
-    return `This action returns all consultation`
+  async findAll(): Promise<ConsultationDocument[]> {
+    const allConsultations = await this.consultationModel.find().exec()
+    return allConsultations
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} consultation`
+  async findOne(id: string): Promise<ConsultationDocument> {
+    const oneConsultation = await this.consultationModel.findById(id).exec()
+    return oneConsultation
   }
 
-  update(id: number, updateConsultationDto: UpdateConsultationDto) {
-    return `This action updates a #${id} consultation`
+  async update(id: string, updateConsultationDto: UpdateConsultationDto) {
+    const consultationToUpdate = await this.consultationModel
+      .findByIdAndUpdate(id, updateConsultationDto)
+      .exec()
+    return consultationToUpdate
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} consultation`
+  async remove(id: string) {
+    const consultationToRemove = await this.consultationModel.findByIdAndDelete(id).exec()
+    return consultationToRemove
   }
 }

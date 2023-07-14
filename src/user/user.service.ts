@@ -23,19 +23,21 @@ export class UserService {
     return user
   }
 
-  findAll() {
-    return `This action returns all user`
+  async findAll(): Promise<UserDocument[]> {
+    return this.userModel.find().exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`
+  async findOne(id: string) {
+    return this.userModel.findById(id).exec()
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const updatedUser = this.userModel.findByIdAndUpdate(id, updateUserDto).exec()
+    return updatedUser
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`
+  remove(id: string) {
+    const removedUser = this.userModel.findByIdAndDelete(id).exec()
+    return removedUser
   }
 }
