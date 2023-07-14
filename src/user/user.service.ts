@@ -5,34 +5,37 @@ import { UserDocument, User_Model } from '@contracts/schemas/user/user.schema'
 import { CreateUserDto } from '@contracts/dtos/user/create-user.dto'
 import { UpdateUserDto } from '@contracts/dtos/user/update-user.dto'
 import { AccountLoginDto } from '@/contracts/dtos/login/account-login.dto'
-import bcrypt from 'bcrypt'
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User_Model) private userModel: Model<UserDocument>) {}
 
-  //Voltar aqui e corrigir o uso do bcrypt e outras funcionalidades na criação dos usuários...
   async create(createUserDto: CreateUserDto) {
-    return await bcrypt.hash(createUserDto.password, 10)
-    // const userExists = this.userModel.find({ email: createUserDto.email }).exec()
-    // if (userExists) {
-    //   console.log('User is already register!!')
-    // }
-    // console.log('her', bcrypt.hash('pas', 10))
-    // const userToBeCreated = {
-    //   ...createUserDto,
-    //   password: bcrypt.hashSync(createUserDto.password, 10),
-    // }
-    // const createdUser = await new this.userModel(userToBeCreated).save()
-    // return createdUser
+    const userExists = await this.userModel.findOne({ email: createUserDto.email }).exec()
+    if (userExists) {
+      throw new Error('User is already registered!!')
+    }
+    const userToBeCreated = {
+      ...createUserDto,
+      password: await bcrypt.hash(createUserDto.password, 10),
+    }
+    const createdUser = await new this.userModel(userToBeCreated).save()
+    return `User has been registered!! \n${createdUser.name}`
   }
 
-  async login(accountLoginDto: AccountLoginDto) {
+  async login(accountLoginDto: AccountLoginDto): Promise<string> {
     const { email, password } = accountLoginDto
-
-    const user = await this.userModel.find({ email: email, password: password }).exec()
-
-    return user
+    let isPasswordValid = false
+    const user = await this.userModel.findOne({ email: email }).exec()
+    if (!user) {
+      console.log(`Invalid credentials for the given Email Id :${email}`)
+    }
+    isPasswordValid = await bcrypt.compare(password, user.password)
+    if (!isPasswordValid) {
+      console.error('Incorrect Password')
+    }
+    return `${user.name} is now logged!`
   }
 
   async findAll(): Promise<UserDocument[]> {
