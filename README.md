@@ -19,7 +19,7 @@
 
 ## About The Project
 
-<p>A simple weather forecast webapp. Made with cutting-edge technology for my personal growth practice. Simple frontend skills and the ability to consume APIs are applied in this project.</p>
+<p>This project is an API that simulates a medical system, allowing users to register as either patients or doctors and create, update, and remove fictitious hospital consultations.<br>As the engine, NodeJs; as the framework, Nestjs (an ExpressJs framework);</p>
 
 <img src="public/preview.png" alt="preview" >
 
