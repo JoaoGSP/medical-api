@@ -4,6 +4,7 @@ import { Model } from 'mongoose'
 import { UserDocument, User_Model } from '@contracts/schemas/user/user.schema'
 import { CreateUserDto } from '@contracts/dtos/user/create-user.dto'
 import { UpdateUserDto } from '@contracts/dtos/user/update-user.dto'
+import { AccountLoginDto } from '@/contracts/dtos/login/account-login.dto'
 
 @Injectable()
 export class UserService {
@@ -12,6 +13,14 @@ export class UserService {
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
     const createdUser = new this.userModel(createUserDto)
     return createdUser.save()
+  }
+
+  async login(accountLoginDto: AccountLoginDto) {
+    const { email, password } = accountLoginDto
+
+    const user = await this.userModel.find({ email: email, password: password }).exec()
+
+    return user
   }
 
   findAll() {

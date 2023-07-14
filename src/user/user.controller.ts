@@ -3,6 +3,7 @@ import { UserService } from './user.service'
 import { CreateUserDto } from '@contracts/dtos/user/create-user.dto'
 import { UpdateUserDto } from '@contracts/dtos/user/update-user.dto'
 import { ApiTags } from '@nestjs/swagger'
+import { AccountLoginDto } from '@/contracts/dtos/login/account-login.dto'
 
 @ApiTags('User')
 @Controller('user')
@@ -12,6 +13,11 @@ export class UserController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto)
+  }
+
+  @Post('login')
+  login(@Body() accountLoginDto: AccountLoginDto) {
+    return this.userService.login(accountLoginDto)
   }
 
   @Get()
